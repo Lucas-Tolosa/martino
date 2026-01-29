@@ -1,0 +1,63 @@
+body{
+    background-color: #354535;
+    text-align: center;
+}
+.caja{
+    width: 50%;
+    height: 100%;
+    margin-inline: 5%;
+    background-color: aqua;
+    transition: 2s;
+    cursor: pointer;
+}
+.caja:hover{
+    transform: scale(1.05);
+    transition: 200ms;
+    
+}
+.container{
+    
+    width: 100%;
+    height: 300px;
+    display: flex;
+    margin-bottom: 30px;
+    
+}
+
+#balcarce{
+    background-image: url(PostreBalcarce.jpg);
+    background-size: cover;
+
+}
+
+#ricota{
+    background-image: url(ricota.jpg);
+    background-size: cover;
+
+}
+#god{
+    background-image: url(god.jpg);
+    background-size: contain;
+}
+#frutilla{
+    background-image: url(frutilla.jpg);
+    background-size: cover;
+}
+.btn-agregar{
+ border-radius: 50%;
+ background-color: black;
+ color: antiquewhite;
+ display:flexbox;
+
+ position: relative;
+ bottom: -220px;
+ right: 2px;
+ height: 50px;
+ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.btn-agregar:hover{
+     background-color: #3D3838;
+}
+.btn-agregar:active{
+    background-color: black;
+}
