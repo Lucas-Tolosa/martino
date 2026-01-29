@@ -1,3 +1,7 @@
-let carrito = []
-carrito.push("hola que tal")
-console.log(carrito)
+let carrito = [];
+
+function agregar (nombre){
+    carrito.push(nombre);
+    console.log(carrito);
+} 
+
