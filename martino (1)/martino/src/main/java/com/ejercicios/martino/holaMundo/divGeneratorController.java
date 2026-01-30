@@ -14,6 +14,6 @@ public class divGeneratorController {
 
     @GetMapping("/alo")
     public String generadorDiv(){
-        return "<div class=\"container\" >\n <div class=\"caja\" id='frutilla' >tarta frutilla <button class=\"btn-agregar\" data-id=\"3\">agregar</button></div>\n<div class=\"caja\" id='god'>chocobomba <button class=\"btn-agregar\" data-id=\"4\">agregar</button></div>\n</div>";
+        return "<div class=\"container\" >\n <div class=\"caja\" id='frutilla' >tarta frutilla <button onclick=\"agregar('tarta frutilla')\" class=\"btn-agregar\" >agregar</button></div>\n<div class=\"caja\" id='god'>god <button onclick=\"agregar('god no?')\" class=\"btn-agregar\" >agregar</button></div>\n</div>";
     }
 }
