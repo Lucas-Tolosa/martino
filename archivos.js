@@ -1,7 +1,11 @@
+var productos = document.createElement("p");
+function stock(nombre){
 
-var newdiv = document.createElement("div");
-fetch("http://localhost:8080/holaMundo/alo").then(Response=>Response.text().then(texto => 
-{newdiv.innerHTML= texto;
-document.body.appendChild(newdiv);}
+fetch("http://localhost:8080/Productos/{nombre}").then(Response=>Response.text().then(texto => 
+{   var sk = texto.at(5);
+    productos.innerHTML= sk;
+    
+document.body.appendChild(productos);}
+
 ).catch(error => console.error('Error:',error)));
-
+}

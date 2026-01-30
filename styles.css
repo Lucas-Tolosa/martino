@@ -1,24 +1,24 @@
 body{
-    background-color: #354535;
+    background-color: whitesmoke;
     text-align: center;
 }
 .caja{
-    width: 50%;
+    width: 40%;
     height: 100%;
     margin-inline: 5%;
     background-color: aqua;
     transition: 2s;
-    cursor: pointer;
+    
 }
 .caja:hover{
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition: 200ms;
     
 }
 .container{
     
     width: 100%;
-    height: 300px;
+    height: 100px;
     display: flex;
     margin-bottom: 30px;
     
@@ -47,17 +47,60 @@ body{
  border-radius: 50%;
  background-color: black;
  color: antiquewhite;
- display:flexbox;
-
  position: relative;
- bottom: -220px;
+ bottom: -50%;
  right: 2px;
  height: 50px;
  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .btn-agregar:hover{
      background-color: #3D3838;
+     cursor: pointer;
 }
 .btn-agregar:active{
     background-color: black;
+}
+.btn-canasto{
+    background-color:transparent;
+    border:0;
+
+}
+header{
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+  margin-bottom: 25px;
+  background-color: aliceblue;
+  border-bottom: 2px solid black;
+}
+.canasto{
+    
+    height:30px;
+}
+.canasto:hover{
+    cursor: pointer;
+}
+#martino-logo{
+    margin-left: 43%;
+    height: 100px;
+    transition: 1s;
+}
+#martino-logo:hover{
+    transform: scale(1.3,1.3);
+    transition: 200ms;
+}
+#warap{
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    border: 0;
+}
+#warap:hover{
+    cursor: pointer;
+}
+
+#warap-img{
+    width: 30px;
+    height: 30px;
 }
