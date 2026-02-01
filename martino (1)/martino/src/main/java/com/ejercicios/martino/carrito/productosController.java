@@ -18,14 +18,10 @@ public class productosController {
         p1[3] = new Productos("Huevo","Es un huevo no molestes",300,30);
         p1[4] = new Productos("Polenta","buenasa con quesito y salsa bolognesa",1800,1);
     }
-    @GetMapping("/{nombre}")
-    public Productos getProductos(@PathVariable String nombre){
-        for(Productos p: p1){
-            if(p.getNombre().equalsIgnoreCase(nombre)){
-                return p;
-            }
-        }
-        return null;
+    @GetMapping("/todos")
+    public Productos[] getProductos(){
+        return p1;
     }
+
 
 }
