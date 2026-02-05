@@ -13,7 +13,7 @@ public class Productos {
     this.precio = precio;
     this.descripcion = descripcion;
     this.stock=stock;
-    itemId =Productos.id++;
+    this.itemId =Productos.id++;
     }
     public String getNombre(){
         return this.nombre;

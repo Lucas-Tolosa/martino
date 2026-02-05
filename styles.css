@@ -5,7 +5,7 @@ body{
 .caja{
     width: 40%;
     height: 100%;
-    margin-inline: 5%;
+    margin-inline: 2%;
     background-color: aqua;
     transition: 2s;
     
@@ -66,16 +66,16 @@ body{
 
 }
 header{
-    display: flexbox;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+  justify-content: space-around;
+  align-items: center ;
   padding-bottom: 30px;
   margin-bottom: 25px;
   background-color: beige;
   border-bottom: 2px solid black;
 }
 .canasto{
-    
+                                       
     height:30px;
 }
 .canasto:hover{

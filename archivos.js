@@ -1,30 +1,30 @@
 
-function productos(){
+async function productos(){
 var productos = document.createElement("div");
 productos.className=("container1");
-fetch("http://localhost:8080/Productos/todos").then(Response=>Response.text().then(texto => 
+await fetch("http://localhost:8080/Productos/todos").then(Response=>Response.text().then(texto => 
 {   const txt = JSON.parse(texto);
-  //  productos.innerHTML= sk;
-  
     
-    console.log(txt.length);
     for(let x =0; x<txt.length;x++){
         productos.innerHTML += (` <div class="caja" id="${txt[x].nombre}">${txt[x].nombre}
-                <button onclick="agregar('${txt[x].nombre}')" class="btn-agregar" >agregar</button>
+                <button onclick="agregar(${txt[x].id})" class="btn-agregar" >agregar</button>
                 <p>Stock: ${txt[x].stock} </p>
             </div>`);
+         
+          cargarCarrito(txt[x]);
     }
-    console.log(txt[0].nombre);
+    console.log(txt[0].id);
     
 document.body.appendChild(productos);
+
+copiar();
 }
 ).catch(error => console.error('Error:',error)));
-var btnVaciar = document.createElement("div");
-btnVaciar.innerHTML=`</div>
-        <button type="button" onclick="vaciar()">vaciar canasto</button>
-        <div id="carrito">
-        </div>`;
-document.body.appendChild(btnVaciar);
 
+var can = document.createElement("div");
+can.id= "carrito1";
+
+document.body.appendChild(can);
+// crea un canasto para que se pueda agarrar el carrito
 }
 
