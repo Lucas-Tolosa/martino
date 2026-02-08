@@ -5,58 +5,60 @@ let carrito={total:0,items:[]};
 
 function cargarCarrito(txt){
     
-    productosEmpresa.set((txt.id),{ nombre : (txt.nombre), stock : (txt.stock), precio : (txt.precio), descripcion : (txt.descripcion)});  
+    productosEmpresa.set((txt.id),{
+         nombre : (txt.nombre), 
+         stock : (txt.stock), 
+         precio : (txt.precio), 
+         descripcion : (txt.descripcion),
+          id : (txt.id)});  
+        
     
 }
 function copiar(){
     for ([llave, valor] of productosEmpresa){
-        compras.set(llave,{nombre : valor.nombre, stock : valor.stock, precio : valor.precio, descripcion : valor.descripcion});     
+        compras.set(llave,{
+            nombre : valor.nombre,
+            stock : valor.stock,
+            precio : valor.precio,
+            descripcion : valor.descripcion,
+            id : valor.id
+        });     
     }
     
 }
 
 function agregar (id){
-    console.log("compras: "+compras.get(id));
     const stock = compras.get(id).stock;
-    console.log("se estan eligiendo"+stock);
-    console.log("empresa tiene:"+productosEmpresa.get(id).stock);
     if(stock<=0){
         alert("no hay stock");
         return;
     }else{
        compras.get(id).stock-=1;
        carrito.total+= compras.get(id).precio;
-       if(carrito.items.length == 0){
-              carrito.items.push({nombre: compras.get(id).nombre, cantidad:1, precio: compras.get(id).precio});
-              console.log(carrito.items);
-              return;
-    }else {
-        if(carrito.items.find(carrito.items[id].nombre)){
-            carrito.items[id].cantidad++;
+       console.log(compras.get(id).nombre)
+        if(carrito.items.find((comparador)=> comparador.nombre == compras.get(id).nombre)){
+            const indice = carrito.items.findIndex((e)=> e.id == compras.get(id).id)
+            carrito.items[indice].cantidad++;
+            console.log(carrito.items[indice].cantidad)
         }else{
-            carrito.items.push({nombre: compras.get(id).nombre, cantidad:1, precio: compras.get(id).precio});
+            carrito.items.push({nombre: compras.get(id).nombre, cantidad:1, precio: compras.get(id).precio, id: id});
+            
         }
     }
-}
-    
-
     mostrar()
-    console.log(carrito);
 } 
 function mostrar(){
     var ca =  document.querySelector("#carrito1");
     if(compras.size==0){
-        console.log("que onda");
         ca.innerHTML="<h1>el canasto esta vacio<h1>";
         return;
     }
-    
+        
     ca.innerHTML="";
     for(let sa of carrito["items"]){
-        console.log("sa: "+sa);
-        ca.innerHTML+="<p>"+carrito.total+"</p>"+"<p>items: "+sa.nombre +" cantidad: "+sa.cantidad +" precio: "+sa.precio+"</p>";
+        ca.innerHTML+="<p>items: "+sa.nombre +" cantidad: "+sa.cantidad +" precio: "+sa.precio+"</p>";
     }
-    
+    ca.innerHTML+="<p>total: "+carrito.total+"</p>";   
 }
 function vaciar(){
     copiar();
@@ -64,7 +66,16 @@ function vaciar(){
     mostrar()
 }
 function pagar(){
-    productosEmpresa.get(id).stock= compras.get(id).stock;
-    var ca =  document.querySelector("#carrito1");
+    
 
+    for(let [llave,valor] of compras){
+        productosEmpresa.set(llave,{
+            nombre : valor.nombre,
+            stock : valor.stock,
+            precio : valor.precio,
+            descripcion : valor.descripcion,
+            id : valor.id});
+    }
+    console.log(productosEmpresa);
+    vaciar()
 }
