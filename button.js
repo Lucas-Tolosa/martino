@@ -1,81 +1,97 @@
-let productosEmpresa =new Map();
-let compras= new Map();
+let compras = [];
 
-let carrito={total:0,items:[]};
+let carrito=[];
+//Cargamos los dos estados, uno que va a ser cambiado solo cuando se
+async function cargarCarrito(){
+    const respuesta = await fetch("http://localhost:8080/Productos/todos");
+    compras = await respuesta.json();
+    console.log(compras)
+}
 
-function cargarCarrito(txt){
-    
-    productosEmpresa.set((txt.id),{
-         nombre : (txt.nombre), 
-         stock : (txt.stock), 
-         precio : (txt.precio), 
-         descripcion : (txt.descripcion),
-          id : (txt.id)});  
+function agregar (id){ 
+   for( let x =0; x<compras.length;x++){
+        if(compras[x].id==id){
+            console.log(compras[x]);
+            if(compras[x].stock>0){
+                compras[x].stock--;
+                if(carrito.length==0){
+                    carrito.push(
+                        {nombre:compras[x].nombre,
+                        id:compras[x].id,
+                        precio:compras[x].precio,
+                        cantidad:1});
+                }else{
+                    console.log(carrito);
+                    for(let a of carrito){
+                        if(a.id == id){
+                            a.cantidad++;
+                            mostrar();
+                            return;
+                        }
+                        }
+                        carrito.push({nombre:compras[x].nombre,
+                        id:compras[x].id,
+                        precio:compras[x].precio,
+                        cantidad:1}); 
+                    }
+                }else{
+                alert("no hay stock disponible");
+                }
+            }
+           
+        }mostrar();
         
-    
-}
-function copiar(){
-    for ([llave, valor] of productosEmpresa){
-        compras.set(llave,{
-            nombre : valor.nombre,
-            stock : valor.stock,
-            precio : valor.precio,
-            descripcion : valor.descripcion,
-            id : valor.id
-        });     
     }
-    
-}
 
-function agregar (id){
-    const stock = compras.get(id).stock;
-    if(stock<=0){
-        alert("no hay stock");
-        return;
-    }else{
-       compras.get(id).stock-=1;
-       carrito.total+= compras.get(id).precio;
-       console.log(compras.get(id).nombre)
-        if(carrito.items.find((comparador)=> comparador.nombre == compras.get(id).nombre)){
-            const indice = carrito.items.findIndex((e)=> e.id == compras.get(id).id)
-            carrito.items[indice].cantidad++;
-            console.log(carrito.items[indice].cantidad)
-        }else{
-            carrito.items.push({nombre: compras.get(id).nombre, cantidad:1, precio: compras.get(id).precio, id: id});
-            
-        }
-    }
-    mostrar()
-} 
 function mostrar(){
     var ca =  document.querySelector("#carrito1");
-    if(compras.size==0){
-        ca.innerHTML="<h1>el canasto esta vacio<h1>";
-        return;
+    var total = 0;
+    for (let x=0; x<carrito.length;x++){
+        total+=(parseInt(carrito[x].cantidad) * parseInt(carrito[x].precio));
     }
-        
+    if(total==0){
+        ca.innerHTML="<h1>el canasto esta vacio<h1>";
+        return; 
+    }
     ca.innerHTML="";
-    for(let sa of carrito["items"]){
+    for(let sa of carrito){
         ca.innerHTML+="<p>items: "+sa.nombre +" cantidad: "+sa.cantidad +" precio: "+sa.precio+"</p>";
     }
-    ca.innerHTML+="<p>total: "+carrito.total+"</p>";   
+    ca.innerHTML+="<p>total: "+total+"</p>";   
 }
 function vaciar(){
-    copiar();
-    carrito={total:0,items:[]};
-    mostrar()
+    cargarCarrito();
+    carrito=[];
+    mostrar();
 }
-function pagar(){
+
+function actualizarPantalla(){
+    const productos = document.querySelector("#container1");
+    productos.innerHTML = "";
+    for(let a of compras){
+        productos.innerHTML+= (` <div class="caja" id="${a.nombre}">${a.nombre}
+                <button onclick="agregar(${a.id})" class="btn-agregar" >agregar</button>
+                <p class="stock">Stock: ${a.stock} </p>
+            </div>`);
+    }
     
 
-    for(let [llave,valor] of compras){
-        productosEmpresa.set(llave,{
-            nombre : valor.nombre,
-            stock : valor.stock,
-            precio : valor.precio,
-            descripcion : valor.descripcion,
-            id : valor.id});
-    }
-    console.log(productosEmpresa);
-    vaciar()
+}
+
+function pagar(){
+
+fetch("http://localhost:8080/Productos/actualizar",{
+    method:"POST",
+    body:JSON.stringify(compras),
+    headers:{
+        'Content-type':'application/json'
+}}).then(respuesta=> {
+    actualizarPantalla();
+    vaciar();
+    return respuesta.text();
+}
+).then(produ =>{
+    console.log(produ);
+}).catch(Error => console.error("Error: " + Error));
+
 }

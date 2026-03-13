@@ -2,6 +2,8 @@ package com.ejercicios.martino.carrito;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 
 @RestController
 @RequestMapping("/Productos")
@@ -19,6 +21,13 @@ public class productosController {
     @GetMapping("/todos")
     public Productos[] getProductos(){
         return p1;
+    }
+
+    @PostMapping("/actualizar")
+    public void pito (@RequestBody Productos[] nombre){
+        for(int x =0; x< nombre.length;x++){
+            p1[x].setStock(nombre[x].getStock());
+        }
     }
 
 
