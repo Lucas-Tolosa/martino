@@ -59,11 +59,6 @@ body{
 .btn-agregar:active{
     background-color: black;
 }
-.btn-canasto{
-    background-color:transparent;
-    border:0;
-
-}
 header{
     display: flex;
   justify-content: space-around;
@@ -74,13 +69,7 @@ header{
   border-bottom: 2px solid black;
 
 }
-.canasto{
-                                       
-    height:30px;
-}
-.canasto:hover{
-    cursor: pointer;
-}
+
 #martino-logo{
     height: 100px;
     transition: 1s;

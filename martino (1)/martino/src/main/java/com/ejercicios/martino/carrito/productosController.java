@@ -3,6 +3,7 @@ package com.ejercicios.martino.carrito;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -24,9 +25,18 @@ public class productosController {
     }
 
     @PostMapping("/actualizar")
-    public void pito (@RequestBody Productos[] nombre){
-        for(int x =0; x< nombre.length;x++){
-            p1[x].setStock(nombre[x].getStock());
+    public void actualizar (@RequestBody List<itemCarrito> carrito){
+        System.out.println("Llego esto: "+ carrito );
+        for(itemCarrito it: carrito){
+            for(Productos p: p1){
+                if(p.getId()==it.getId()){
+                    if(it.getCantidad()<p.getStock()){
+                    p.setStock((p.getStock()-it.getCantidad()));}
+                    else {
+                        throw new RuntimeException("te re fuiste pa");
+                    }
+                }
+            }
         }
     }
 

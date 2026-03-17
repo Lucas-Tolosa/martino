@@ -1,46 +1,36 @@
 let compras = [];
 
 let carrito=[];
-//Cargamos los dos estados, uno que va a ser cambiado solo cuando se
+
 async function cargarCarrito(){
     const respuesta = await fetch("http://localhost:8080/Productos/todos");
     compras = await respuesta.json();
-    console.log(compras)
 }
 
 function agregar (id){ 
-   for( let x =0; x<compras.length;x++){
-        if(compras[x].id==id){
-            console.log(compras[x]);
-            if(compras[x].stock>0){
-                compras[x].stock--;
-                if(carrito.length==0){
-                    carrito.push(
-                        {nombre:compras[x].nombre,
-                        id:compras[x].id,
-                        precio:compras[x].precio,
-                        cantidad:1});
-                }else{
-                    console.log(carrito);
-                    for(let a of carrito){
-                        if(a.id == id){
-                            a.cantidad++;
-                            mostrar();
-                            return;
-                        }
-                        }
-                        carrito.push({nombre:compras[x].nombre,
-                        id:compras[x].id,
-                        precio:compras[x].precio,
-                        cantidad:1}); 
-                    }
-                }else{
-                alert("no hay stock disponible");
-                }
-            }
-           
-        }mostrar();
-        
+    const produ = compras.find(hay=>hay.id==id);
+    if(!produ){
+        alert("el objeto escrito no existe");
+        return;
+    }  
+    if(produ.stock<=0){
+        alert("no hay stock disponible");
+        return;
+    }
+    const carro = carrito.find(car=>car.id ==id);
+
+    if(carro){
+        if(produ.stock>carro.cantidad){
+             carro.cantidad++;
+             
+        }else{
+            alert("compra sobrepasa el stock existente");
+        }
+       
+    }else{
+        carrito.push({nombre:produ.nombre, id:produ.id,precio:produ.precio,cantidad:1})
+    }
+    mostrar()
     }
 
 function mostrar(){
@@ -60,8 +50,8 @@ function mostrar(){
     ca.innerHTML+="<p>total: "+total+"</p>";   
 }
 function vaciar(){
-    cargarCarrito();
     carrito=[];
+    cargarCarrito(); 
     mostrar();
 }
 
@@ -78,20 +68,17 @@ function actualizarPantalla(){
 
 }
 
-function pagar(){
+async function pagar(){
 
-fetch("http://localhost:8080/Productos/actualizar",{
+await fetch("http://localhost:8080/Productos/actualizar",{
     method:"POST",
-    body:JSON.stringify(compras),
+    body:JSON.stringify(carrito),
     headers:{
         'Content-type':'application/json'
-}}).then(respuesta=> {
-    actualizarPantalla();
-    vaciar();
-    return respuesta.text();
-}
-).then(produ =>{
-    console.log(produ);
-}).catch(Error => console.error("Error: " + Error));
+}});
 
+await cargarCarrito();
+carrito=[];
+mostrar();
+actualizarPantalla(); 
 }
