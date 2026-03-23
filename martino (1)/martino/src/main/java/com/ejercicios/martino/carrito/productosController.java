@@ -26,11 +26,10 @@ public class productosController {
 
     @PostMapping("/actualizar")
     public void actualizar (@RequestBody List<itemCarrito> carrito){
-        System.out.println("Llego esto: "+ carrito );
         for(itemCarrito it: carrito){
             for(Productos p: p1){
                 if(p.getId()==it.getId()){
-                    if(it.getCantidad()<p.getStock()){
+                    if(it.getCantidad()<=p.getStock()){
                     p.setStock((p.getStock()-it.getCantidad()));}
                     else {
                         throw new RuntimeException("te re fuiste pa");

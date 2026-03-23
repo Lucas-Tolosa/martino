@@ -71,7 +71,8 @@ header{
 }
 
 #martino-logo{
-    height: 100px;
+   
+    width: 70%;
     transition: 1s;
 }
 #martino-logo:hover{

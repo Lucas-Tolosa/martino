@@ -69,7 +69,7 @@ function actualizarPantalla(){
 }
 
 async function pagar(){
-
+console.log(carrito);
 await fetch("http://localhost:8080/Productos/actualizar",{
     method:"POST",
     body:JSON.stringify(carrito),
