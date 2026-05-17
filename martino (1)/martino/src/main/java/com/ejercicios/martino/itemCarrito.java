@@ -1,4 +1,4 @@
-package com.ejercicios.martino.carrito;
+package com.ejercicios.martino;
 
 public class itemCarrito {
     private int id;

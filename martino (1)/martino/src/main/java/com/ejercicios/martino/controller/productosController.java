@@ -1,7 +1,7 @@
-package com.ejercicios.martino.carrito.controller;
+package com.ejercicios.martino.controller;
 
-import com.ejercicios.martino.carrito.Productos;
-import com.ejercicios.martino.carrito.itemCarrito;
+import com.ejercicios.martino.Productos;
+import com.ejercicios.martino.itemCarrito;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/Productos")
 @CrossOrigin("*")
+
 public class productosController {
     private Productos[] p1 = new Productos[5];
 //definimos cada producto harcodeado, en un futuro lo juntamos con la base de datos
