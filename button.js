@@ -34,7 +34,7 @@ function agregar (id){
     }
 
 function mostrar(){
-    var ca =  document.querySelector("#carrito1");
+    var ca =  document.querySelector("#carrito");
     var total = 0;
     for (let x=0; x<carrito.length;x++){
         total+=(parseInt(carrito[x].cantidad) * parseInt(carrito[x].precio));
@@ -58,11 +58,13 @@ function vaciar(){
 function actualizarPantalla(){
     const productos = document.querySelector("#container1");
     productos.innerHTML = "";
-    for(let a of compras){
-        productos.innerHTML+= (` <div class="caja" id="${a.nombre}">${a.nombre}
-                <button onclick="agregar(${a.id})" class="btn-agregar" >agregar</button>
-                <p class="stock">Stock: ${a.stock} </p>
-            </div>`);
+    for(let producto of compras){
+        productos.innerHTML+= (` <article class="caja">
+                <div class=""><img src="fotos/${producto.nombre}.jpg" /></div>
+                <div class="nombreProd"><p>${producto.nombre}</p></div>
+                <div class="agregarProd"><button onclick="agregar(${producto.id})" class="btn-agregar" >agregar</button></div>
+                <div class="stockProd"><p class="stock">Stock: ${producto.stock} </p></div>
+            </article>`);
     }
     
 
