@@ -1,10 +1,17 @@
-package com.ejercicios.martino;
+package com.ejercicios.martino.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Productos {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int itemId;
     private String nombre;
     private String descripcion;
-    private static int id=0;
-    private int itemId;
     private int precio;
     private int stock;
 
@@ -15,7 +22,6 @@ public class Productos {
     this.precio = precio;
     this.descripcion = descripcion;
     this.stock=stock;
-    this.itemId =Productos.id++;
     }
     public String getNombre(){
         return this.nombre;
@@ -47,5 +53,9 @@ public class Productos {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    @Override
+    public String toString(){
+        return "Producto[nombre:%s, stock: %d, descripcion:%s, precio:%d]";
     }
 }

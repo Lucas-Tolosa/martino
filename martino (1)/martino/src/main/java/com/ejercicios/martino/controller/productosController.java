@@ -1,7 +1,10 @@
 package com.ejercicios.martino.controller;
 
-import com.ejercicios.martino.Productos;
-import com.ejercicios.martino.itemCarrito;
+import com.ejercicios.martino.Service.ProductosService;
+import com.ejercicios.martino.domain.Productos;
+import com.ejercicios.martino.domain.itemCarrito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,8 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/Productos")
 @CrossOrigin("*")
-
+@Controller
 public class productosController {
+    @Autowired
+    private ProductosService ps;
     private Productos[] p1 = new Productos[5];
 //definimos cada producto harcodeado, en un futuro lo juntamos con la base de datos
     public productosController(){
@@ -24,6 +29,14 @@ public class productosController {
     @GetMapping("/todos")
     public Productos[] getProductos(){
         return p1;
+    }
+
+    @GetMapping("/funca:{nombre}")
+    public Productos obtenerPorNombre(@PathVariable String nombre){
+        Productos p = ps.encontrarPorNombre(nombre);
+        System.out.println("obtenerPorNombre: "+nombre);
+        System.out.println( p.toString());
+        return p;
     }
 
     @PostMapping("/actualizar")

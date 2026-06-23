@@ -1,6 +1,11 @@
-package com.ejercicios.martino;
+package com.ejercicios.martino.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class itemCarrito {
+    @Id
     private int id;
     private int cantidad;
 
