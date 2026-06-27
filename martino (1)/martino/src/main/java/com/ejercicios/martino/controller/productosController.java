@@ -4,7 +4,6 @@ import com.ejercicios.martino.Service.ProductosService;
 import com.ejercicios.martino.domain.Productos;
 import com.ejercicios.martino.domain.itemCarrito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/Productos")
 @CrossOrigin("*")
-@Controller
 public class productosController {
     @Autowired
     private ProductosService ps;
@@ -31,7 +29,7 @@ public class productosController {
         return p1;
     }
 
-    @GetMapping("/funca:{nombre}")
+    @GetMapping("/funca/{nombre}")
     public Productos obtenerPorNombre(@PathVariable String nombre){
         Productos p = ps.encontrarPorNombre(nombre);
         System.out.println("obtenerPorNombre: "+nombre);
