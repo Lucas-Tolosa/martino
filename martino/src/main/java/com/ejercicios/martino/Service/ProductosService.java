@@ -15,7 +15,7 @@ public class ProductosService {
         if(repositorio.existsByNombre(nombre)){
             return repositorio.findByNombre(nombre);
         }
-        return null;
+        throw new RuntimeException("No existe el producto con el nombre: "+nombre);
 
     }
 public void eliminarCarrito(){}

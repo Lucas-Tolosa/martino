@@ -29,7 +29,7 @@ public class productosController {
         return p1;
     }
 
-    @GetMapping("/funca/{nombre}")
+    @GetMapping("/producto/{nombre}")
     public Productos obtenerPorNombre(@PathVariable String nombre){
         Productos p = ps.encontrarPorNombre(nombre);
         System.out.println("obtenerPorNombre: "+nombre);

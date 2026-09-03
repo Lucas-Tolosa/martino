@@ -56,6 +56,6 @@ public class Productos {
     }
     @Override
     public String toString(){
-        return "Producto[nombre:%s, stock: %d, descripcion:%s, precio:%d]";
+        return "id: "+this.getId()+", nombre:"+this.getNombre()+", stock: "+this.getStock()+", descripcion:"+this.getDescripcion()+", precio:"+this.getPrecio();
     }
 }
